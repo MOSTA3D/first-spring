@@ -15,10 +15,17 @@ public class UserDetailsRequestModel {
 	@Size(min=8, max=16, message="this field is required")
 	@NotNull(message="this field is required")
 	private String password;
+
+	public UserDetailsRequestModel() {}
 	
 	public UserDetailsRequestModel(String firstname, String lastname, String email, String password) {
 		this.firstname = firstname;
 		this.lastname = lastname;
+		this.email = email;
+		this.password = password;
+	}
+	
+	public UserDetailsRequestModel(String email, String password) {
 		this.email = email;
 		this.password = password;
 	}

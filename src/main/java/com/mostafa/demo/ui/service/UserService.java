@@ -1,21 +1,24 @@
 package com.mostafa.demo.ui.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import com.mostafa.demo.ui.interfaces.IService;
+
+import com.mostafa.demo.ui.interfaces.IUserService;
 import com.mostafa.demo.ui.model.request.UserDetailsRequestModel;
-import com.mostafa.demo.ui.model.response.UserRest;
 import com.mostafa.demo.ui.repository.IUserRepository;
 import com.mostafa.demo.ui.entitties.User;
 
 
 @Service
-public class UserService implements IService<UserDetailsRequestModel, UserRest, User>{
+public class UserService implements IUserService{
 
 	private IUserRepository userRepo;
 	
+	@Autowired
 	public UserService(IUserRepository userRepo) {
 		this.userRepo = userRepo;
 	}
@@ -26,8 +29,8 @@ public class UserService implements IService<UserDetailsRequestModel, UserRest, 
 	}
 
 	@Override
-	public User getOne(Long id) {
-		return userRepo.findById(id).get();
+	public Optional<User> getOne(Long id) {
+		return userRepo.findById(id);		
 	}
 
 	@Override
@@ -49,5 +52,13 @@ public class UserService implements IService<UserDetailsRequestModel, UserRest, 
 		userRepo.deleteById(id);
 	}
 	
+	// exclusive methods
+	
+	public Optional<User> auth(UserDetailsRequestModel user) {
+		System.out.println("before authentication");
+		System.out.println(user.getEmail());
+		System.out.println("after authentication");
+		return userRepo.findUserByEmail(user.getEmail());
+	}
 	
 }

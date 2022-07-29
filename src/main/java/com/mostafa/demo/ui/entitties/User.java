@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-@Entity
+@Entity(name="users")
 @Table
 public class User {
 	@Id
@@ -21,11 +21,23 @@ public class User {
 		generator = "users_sequence"
 	)
 	
-	private long id;
+	private Long id;
 	private String firstname;
 	private String lastname;
 	private String email;
 	private String password;
+	
+//	public User (String firstname, String lastname, String email, String password, Long id) {
+//		this.firstname = firstname;
+//		this.lastname = lastname;
+//		this.email = email;
+//		this.password = password;
+//		this.id = id;
+//	}
+	
+	public User() {
+		
+	}
 	
 	public User (String firstname, String lastname, String email, String password) {
 		this.firstname = firstname;
@@ -33,13 +45,12 @@ public class User {
 		this.email = email;
 		this.password = password;
 	}
-	
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
